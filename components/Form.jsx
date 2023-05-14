@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { useState } from "react";
 
-const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+const Form = ({ type, post, setPost, IsSubmitting, handleSubmit }) => {
   return (
     <section className='w-full max-w-full flex-start flex-col'>
       <h1 className='head_text text-left'>
@@ -55,10 +55,10 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
 
           <button
             type='submit'
-            disabled={submitting}
+            disabled={IsSubmitting}
             className='px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white'
           >
-            {submitting ? `${type}ing...` : type}
+            {IsSubmitting ? `${type}ing...` : type}
           </button>
         </div>
       </form>

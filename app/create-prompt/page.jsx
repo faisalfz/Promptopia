@@ -10,7 +10,7 @@ const CreatePrompt = () => {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const [submitting, setIsSubmitting] = useState(false);
+  const [IsSubmitting, setIsSubmitting] = useState(false);
   const [post, setPost] = useState({ prompt: "", tag: "" });
 
   const createPrompt = async (e) => {
@@ -39,10 +39,10 @@ const CreatePrompt = () => {
 
   return (
     <Form
-      type='Create'
+      type="Create"
       post={post}
       setPost={setPost}
-      submitting={submitting}
+      submitting={IsSubmitting}
       handleSubmit={createPrompt}
     />
   );

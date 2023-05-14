@@ -4,23 +4,24 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Nav = () => {
-  const {data: session} = useSession();
-  
+  const { data: session } = useSession();
+  const router = useRouter();
+
   const [providers, setProviders] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  useEffect(()=> {
+  useEffect(() => {
     const setUpProviders = async () => {
       const response = await getProviders();
       setProviders(response);
-    }
+    };
 
-      setUpProviders(); 
-  }, [])
+    setUpProviders();
+  }, []);
 
-  
   return (
     <nav className="flex flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
@@ -33,7 +34,7 @@ const Nav = () => {
         />
         <p className="logo_text">Promptopia</p>
       </Link>
-      
+
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
         {session?.user ? (
@@ -41,7 +42,14 @@ const Nav = () => {
             <Link href="/create-prompt" className="black_btn">
               Create Post
             </Link>
-            <button type="button" onClick={signOut} className="outline_btn">
+            <button
+              type="button"
+              onClick={async() => {
+                await signOut();
+                router.push("/");
+              }}
+              className="outline_btn"
+            >
               Sign Out
             </button>
             <Link href="/profile">
@@ -109,6 +117,7 @@ const Nav = () => {
                 <button
                   type="button"
                   onClick={() => {
+                    router.push("/");
                     setToggleDropdown(false);
                     signOut();
                   }}
